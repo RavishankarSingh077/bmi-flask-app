@@ -1,3 +1,4 @@
+
 import numpy as np
 from flask import Flask, request, render_template
 import joblib
@@ -18,9 +19,16 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    # Get data from form
-    int_features = [float(x) for x in request.form.values()]
-    final_features = [np.array(int_features)]
+    # Get form values
+    age = float(request.form['Age'])
+    height = float(request.form['Height'])
+    weight = float(request.form['Weight'])
+
+    # Auto-calculate BMI
+    bmi = weight / (height ** 2)
+
+    # Combine features for prediction
+    final_features = [np.array([age, height, weight, bmi])]
 
     # Predict
     prediction = model.predict(final_features)
@@ -37,10 +45,19 @@ def predict():
     elif prediction[0] == 4:
         output = 'Obese Class 2 (More serious obesity)'
     else:
-        output = 'Obese Class 1 (First level of obesity.)'
+        output = 'Obese Class 1 (First level of obesity)'
 
     return render_template('index.html', prediction_text=f'{output}')
 
 
+
+
+
+
+
+import os
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
+
