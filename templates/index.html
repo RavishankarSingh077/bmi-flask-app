@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ML API</title>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+
+
+
+</head>
+<body>
+<div class="login">
+    <h1>BMI CLASS PREDICTION MODEL</h1>
+
+    <h4 style="text-align: center;"> :created by Ravishankar singh</h4>
+
+    <form action="{{url_for('predict')}}" method="post">
+
+        <input type="text" name="Age" placeholder="Age in years" required="required"/>
+        <input type="text" name="Height" placeholder="Height in metre" required="required"/>
+        <input type="text" name="Weight" placeholder="Weight in kg" required="required"/>
+        <input type="text" name="Bmi" placeholder="Bmi" required="required"/>
+
+
+
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+
+    <h2 id="predi">The Predicted BMI Class is: {{ prediction_text }}</h2>
+
+
+</div>
+</body>
+</html>
